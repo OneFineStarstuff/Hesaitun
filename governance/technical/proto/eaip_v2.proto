@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package eaip.v2;
+
+import "google/protobuf/timestamp.proto";
+
+// §3 Recursive Context Envelope (RCE)
+message RCE {
+  string envelope_id = 1;
+  string parent_id = 2;
+  int32 depth = 3; // MUST NOT exceed 4
+  google.protobuf.Timestamp created = 4;
+  string ttl = 5; // ISO 8601 duration
+  string compression_algo = 6; // e.g., "zstd", "none"
+  int32 compression_level = 7;
+
+  Origin origin = 8;
+  State state = 9;
+  repeated Slot context_slots = 10; // Max 32 slots
+
+  repeated RCE children = 11; // Recursive nesting
+}
+
+message Origin {
+  string spiffe_id = 1; // e.g., "spiffe://eaip.example.org/..."
+  string trace_id = 2;
+  string span_id = 3;
+}
+
+message State {
+  string conversation_id = 1;
+  int32 turn_index = 2;
+  int32 token_budget = 3;
+  int32 tokens_consumed = 4;
+  ContextWindow context_window = 5;
+}
+
+message ContextWindow {
+  string strategy = 1; // "sliding", "fixed"
+  int32 max_tokens = 2;
+}
+
+message Slot {
+  int32 id = 1;
+  string type = 2; // e.g., "SystemPrompt", "UserMessage"
+  bool immutable = 3;
+  bytes content = 4;
+}
+
+// §1 Transport - Inference Service
+service InferenceService {
+  rpc Process (InferenceRequest) returns (InferenceResponse);
+}
+
+message InferenceRequest {
+  RCE rce = 1; // MUST carry exactly one root RCE
+  bytes payload = 2;
+}
+
+message InferenceResponse {
+  RCE rce = 1;
+  bytes result = 2;
+}
