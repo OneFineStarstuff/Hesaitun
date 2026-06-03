@@ -1,0 +1,23 @@
+{
+  "title": "Enterprise AI Integration Protocol (EAIP) - Technical Specification",
+  "description": "The Enterprise AI Integration Protocol (EAIP) defines mandatory transport, identity, and state-management requirements for interoperable autonomous agent systems in the enterprise.",
+  "creators": [
+    {
+      "name": "EAIP Technical Standards Committee"
+    }
+  ],
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "version": "2.4.1",
+  "upload_type": "software",
+  "keywords": [
+    "AI",
+    "Protocol",
+    "Governance",
+    "Enterprise",
+    "Interoperability",
+    "gRPC",
+    "SPIFFE",
+    "SPIRE"
+  ]
+}
