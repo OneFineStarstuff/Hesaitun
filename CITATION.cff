@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this specification, please cite it as below."
+authors:
+  - name: "EAIP Technical Standards Committee"
+    email: "spec@eaip.example.org"
+title: "Enterprise AI Integration Protocol (EAIP) - Technical Specification"
+version: 2.4.1
+date-released: 2026-03-16
+url: "https://github.com/eaip/eaip-spec"
