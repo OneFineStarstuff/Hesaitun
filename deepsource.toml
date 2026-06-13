@@ -1,0 +1,20 @@
+version = 1
+
+exclude_patterns = [
+  "**/__pycache__/**",
+  ".venv/**"
+]
+
+[[analyzers]]
+name = "python"
+enabled = true
+
+  [analyzers.meta]
+  runtime_version = "3.12.x"
+
+[[analyzers]]
+name = "shell"
+enabled = true
+
+  [analyzers.meta]
+  dialect = "bash"
